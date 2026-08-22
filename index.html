@@ -337,9 +337,9 @@
     </header>
 
     <nav>
-        <a href="#" class="active">[ ALL ]</a>
-        <a href="#">[ ATARI 8-BIT ]</a>
-        <a href="#">[ PC ]</a>
+        <a href="#" class="active" data-filter="all">[ ALL ]</a>
+        <a href="#" data-filter="atari">[ ATARI 8-BIT ]</a>
+        <a href="#" data-filter="pc">[ PC ]</a>
         <a href="#">[ EXTERNAL LINKS ]</a>
         <a href="#">[ CONTACT ]</a>
     </nav>
@@ -347,7 +347,7 @@
     <div class="download-list">
 
         <!-- 1. Bonsai Zen -->
-        <div class="download-card" style="border-left-color: #2dd4bf;">
+        <div class="download-card" data-cat="atari" style="border-left-color: #2dd4bf;">
             <div class="thumb-box">
                 <img src="bonsai.png" alt="Bonsai Zen" class="default">
             </div>
@@ -363,7 +363,7 @@
         </div>
 
         <!-- 2. Iron Maiden -->
-        <div class="download-card" style="border-left-color: #f43f5e;">
+        <div class="download-card" data-cat="atari" style="border-left-color: #f43f5e;">
             <div class="thumb-box">
                 <img src="iron_maiden.png" alt="Iron Maiden" class="default">
             </div>
@@ -379,7 +379,7 @@
         </div>
 
         <!-- 3. IronUlam v0.99b -->
-        <div class="download-card" style="border-left-color: #f59e0b;">
+        <div class="download-card" data-cat="pc" style="border-left-color: #f59e0b;">
             <div class="thumb-box swap-3">
                 <img src="ironulam_1.png" alt="IronUlam 1" class="default">
                 <img src="ironulam_2.png" alt="IronUlam 2" class="hover-1">
@@ -397,7 +397,7 @@
         </div>
 
         <!-- 4. Liczenie Obrazków -->
-        <div class="download-card" style="border-left-color: #38bdf8;">
+        <div class="download-card" data-cat="atari" style="border-left-color: #38bdf8;">
             <div class="thumb-box swap-3">
                 <img src="liczenie_obrazkow_1.png" alt="Liczenie Obrazków 1" class="default">
                 <img src="liczenie_obrazkow_2.png" alt="Liczenie Obrazków 2" class="hover-1">
@@ -415,7 +415,7 @@
         </div>
 
         <!-- 5. Road To Mountain -->
-        <div class="download-card" style="border-left-color: #a855f7;">
+        <div class="download-card" data-cat="atari" style="border-left-color: #a855f7;">
             <div class="thumb-box">
                 <img src="MOUNTAIN.PNG" alt="Road To Mountain" class="default">
             </div>
@@ -431,7 +431,7 @@
         </div>
 
         <!-- 6. Soccer Pong -->
-        <div class="download-card" style="border-left-color: #22c55e;">
+        <div class="download-card" data-cat="atari" style="border-left-color: #22c55e;">
             <div class="thumb-box swap-3">
                 <img src="soccer_pong_1.png" alt="Soccer Pong 1" class="default">
                 <img src="soccer_pong_2.png" alt="Soccer Pong 2" class="hover-1">
@@ -465,6 +465,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Pobieranie rozmiarów plików
         document.querySelectorAll('.btn-download').forEach(btn => {
             const fileName = btn.getAttribute('data-file');
             const innerSpan = btn.querySelector('.btn-file-inner');
@@ -487,6 +488,29 @@
                 .catch(() => {
                     // Fallback w razie niedostępności pliku (zostaje sama nazwa)
                 });
+        });
+
+        // Filtrowanie kategorii (All, Atari, PC)
+        const filters = document.querySelectorAll('nav a[data-filter]');
+        const cards = document.querySelectorAll('.download-card');
+
+        filters.forEach(filter => {
+            filter.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                filters.forEach(f => f.classList.remove('active'));
+                filter.classList.add('active');
+
+                const cat = filter.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
         });
     });
 </script>
