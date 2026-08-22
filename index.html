@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -142,7 +142,7 @@
             box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
         }
 
-        /* Lista plików */
+        /* Lista elementów (pliki i linki) */
         .download-list {
             display: flex;
             flex-direction: column;
@@ -235,7 +235,37 @@
             font-family: monospace;
         }
 
-        /* Przyciski pobierania */
+        /* Sekcja "Under Construction" dla kontaktu */
+        .construction-box {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: #090d16;
+            border: 2px dashed #f59e0b;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: inset 0 0 15px rgba(245, 158, 11, 0.1);
+        }
+
+        .construction-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.1rem;
+            color: #f59e0b;
+            margin-bottom: 15px;
+            text-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+        }
+
+        .construction-desc {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            color: #94a3b8;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        /* Przyciski pobierania / odnośników */
         .btn-download {
             display: flex;
             flex-direction: column;
@@ -272,7 +302,7 @@
             margin-bottom: 4px;
         }
 
-        /* Kontener na nazwę pliku i rozmiar z obsługą przewijania */
+        /* Kontener na nazwę pliku / URL z obsługą przewijania */
         .btn-file {
             font-size: 0.72rem;
             font-weight: bold;
@@ -400,11 +430,13 @@
         <a href="#" class="active" data-filter="all">[ ALL ]</a>
         <a href="#" data-filter="atari">[ ATARI 8-BIT ]</a>
         <a href="#" data-filter="pc">[ PC ]</a>
-        <a href="#">[ EXTERNAL LINKS ]</a>
-        <a href="#">[ CONTACT ]</a>
+        <a href="#" data-filter="links">[ EXTERNAL LINKS ]</a>
+        <a href="#" data-filter="contact">[ CONTACT ]</a>
     </nav>
 
     <div class="download-list">
+
+        <!-- --- SEKCJA OPROGRAMOWANIA --- -->
 
         <!-- 1. Bonsai -->
         <div class="download-card" data-cat="atari" style="border-left-color: #2dd4bf;">
@@ -508,17 +540,94 @@
             </a>
         </div>
 
+
+        <!-- --- SEKCJA EXTERNAL LINKS (ALFABETYCZNIE) --- -->
+
+        <!-- 1. AtariArea -->
+        <div class="download-card" data-cat="links" style="border-left-color: #38bdf8; display: none;">
+            <div class="item-info">
+                <div class="item-title">AtariArea</div>
+                <div class="item-desc">Polish 8-bit Atari demoscene hub featuring community forums, projects, hardware mods, and event announcements.</div>
+                <div class="item-meta">URL: https://www.atari.org.pl</div>
+            </div>
+            <a href="https://www.atari.org.pl" target="_blank" rel="noopener" class="btn-download btn-blue">
+                <span class="btn-text">VISIT SITE ↗</span>
+                <span class="btn-file"><span class="btn-file-inner">ATARI.ORG.PL</span></span>
+            </a>
+        </div>
+
+        <!-- 2. AtariOnline.pl -->
+        <div class="download-card" data-cat="links" style="border-left-color: #22c55e; display: none;">
+            <div class="item-info">
+                <div class="item-title">AtariOnline.pl</div>
+                <div class="item-desc">Informational portal, articles, software repository, game databases, and retrocomputing news for Atari enthusiasts.</div>
+                <div class="item-meta">URL: https://atarionline.pl/</div>
+            </div>
+            <a href="https://atarionline.pl/" target="_blank" rel="noopener" class="btn-download btn-green">
+                <span class="btn-text">VISIT SITE ↗</span>
+                <span class="btn-file"><span class="btn-file-inner">ATARIONLINE.PL</span></span>
+            </a>
+        </div>
+
+        <!-- 3. Atariki -->
+        <div class="download-card" data-cat="links" style="border-left-color: #2dd4bf; display: none;">
+            <div class="item-info">
+                <div class="item-title">Atariki</div>
+                <div class="item-desc">Online wiki encyclopedia and comprehensive knowledge base dedicated to Atari computer hardware, history, and software.</div>
+                <div class="item-meta">URL: http://atariki.krap.pl/</div>
+            </div>
+            <a href="http://atariki.krap.pl/" target="_blank" rel="noopener" class="btn-download btn-cyan">
+                <span class="btn-text">VISIT SITE ↗</span>
+                <span class="btn-file"><span class="btn-file-inner">ATARIKI.KRAP.PL</span></span>
+            </a>
+        </div>
+
+        <!-- 4. Graph2Font (G2F) -->
+        <div class="download-card" data-cat="links" style="border-left-color: #a855f7; display: none;">
+            <div class="item-info">
+                <div class="item-title">Graph2Font (G2F)</div>
+                <div class="item-desc">Home page of the advanced graphic conversion tool for creating high-color artwork on 8-bit Atari using GTIA/ANTIC hardware features.</div>
+                <div class="item-meta">URL: https://g2f.atari8.info/</div>
+            </div>
+            <a href="https://g2f.atari8.info/" target="_blank" rel="noopener" class="btn-download btn-purple">
+                <span class="btn-text">VISIT SITE ↗</span>
+                <span class="btn-file"><span class="btn-file-inner">G2F.ATARI8.INFO</span></span>
+            </a>
+        </div>
+
+        <!-- 5. QB64 Phoenix Edition -->
+        <div class="download-card" data-cat="links" style="border-left-color: #f59e0b; display: none;">
+            <div class="item-info">
+                <div class="item-title">QB64 Phoenix Edition</div>
+                <div class="item-desc">Official website of the modern QB64PE compiler – a portable C++/BASIC environment for modern operating systems.</div>
+                <div class="item-meta">URL: https://www.qb64phoenix.com/</div>
+            </div>
+            <a href="https://www.qb64phoenix.com/" target="_blank" rel="noopener" class="btn-download btn-amber">
+                <span class="btn-text">VISIT SITE ↗</span>
+                <span class="btn-file"><span class="btn-file-inner">QB64PHOENIX.COM</span></span>
+            </a>
+        </div>
+
+        <!-- --- SEKCJA KONTAKT --- -->
+        <div id="contact-box" class="construction-box">
+            <div class="construction-title">[ UNDER CONSTRUCTION ]</div>
+            <div class="construction-desc">
+                &gt;_ DIRECT COMMUNICATION NODE IS CURRENTLY OFFLINE.<br>
+                CHECK BACK LATER FOR UPDATED RELAY DETAILS!
+            </div>
+        </div>
+
     </div>
 
     <!-- Stopka -->
     <footer>
-        LAST UPDATE: <span id="last-update">--</span>
+        LAST UPDATE: <span>SATURDAY, 21:06:55, 22.08.2026</span>
     </footer>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Automatyczne włączanie przewijania nazwy pliku, jeśli się nie mieści
+        // Automatyczne włączanie przewijania nazwy pliku / linku, jeśli nie mieści się w przycisku
         document.querySelectorAll('.btn-download').forEach(btn => {
             const innerSpan = btn.querySelector('.btn-file-inner');
             const container = btn.querySelector('.btn-file');
@@ -528,18 +637,10 @@
             }
         });
 
-        // Generowanie daty w stopce: (angielski dzień tygodnia, godzina, data)
-        const now = new Date();
-        
-        const weekday = now.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase();
-        const time = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        const date = now.toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' });
-
-        document.getElementById('last-update').textContent = `${weekday}, ${time}, ${date}`;
-
-        // Filtrowanie kategorii
+        // Filtrowanie kategorii (All, Atari 8-bit, PC, External Links, Contact)
         const filters = document.querySelectorAll('nav a[data-filter]');
         const cards = document.querySelectorAll('.download-card');
+        const contactBox = document.getElementById('contact-box');
 
         filters.forEach(filter => {
             filter.addEventListener('click', (e) => {
@@ -550,13 +651,23 @@
 
                 const cat = filter.getAttribute('data-filter');
 
-                cards.forEach(card => {
-                    if (cat === 'all' || card.getAttribute('data-cat') === cat) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+                if (cat === 'contact') {
+                    cards.forEach(card => card.style.display = 'none');
+                    contactBox.style.display = 'flex';
+                } else {
+                    contactBox.style.display = 'none';
+                    cards.forEach(card => {
+                        const cardCat = card.getAttribute('data-cat');
+                        
+                        if (cat === 'all') {
+                            card.style.display = (cardCat !== 'links') ? 'flex' : 'none';
+                        } else if (cat === cardCat) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
             });
         });
     });
