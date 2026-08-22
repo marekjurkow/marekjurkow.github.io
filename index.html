@@ -241,8 +241,8 @@
             will-change: transform;
         }
 
-        /* Płynne przewijanie prawo-lewo (marquee) po najechaniu */
-        .btn-file-inner.scroll:hover {
+        /* Ciągłe płynne przewijanie prawo-lewo (marquee) */
+        .btn-file-inner.scroll {
             animation: marquee 7s linear infinite;
         }
 
@@ -459,7 +459,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Sprawdzanie długości tekstu i aktywowanie przewijania w razie potrzeby
+        // Automatyczne włączanie ciągłego przewijania, jeśli tekst się nie mieści
         document.querySelectorAll('.btn-download').forEach(btn => {
             const innerSpan = btn.querySelector('.btn-file-inner');
             const container = btn.querySelector('.btn-file');
