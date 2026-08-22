@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iron Stuff Repository</title>
+    <!-- Import fontu retro-pixelowego z Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
     <style>
         /* Reset & bazowe style */
         * {
@@ -38,28 +43,75 @@
             backdrop-filter: blur(5px);
         }
 
-        /* Nagłówek */
-        header {
+        /* --- STYLIZOWANY BANER RETRO / CRT --- */
+        .retro-banner {
+            position: relative;
+            background: #050811;
+            border: 2px solid #1e293b;
+            border-top: 4px solid #38bdf8;
+            border-radius: 8px;
+            padding: 25px 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.15), inset 0 0 15px rgba(0, 0, 0, 0.8);
             text-align: center;
-            border-bottom: 2px solid #2a3441;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
         }
 
-        header h1 {
+        /* Efekt pasków kineskopowych (scanlines) */
+        .retro-banner::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .banner-sub {
             font-family: 'Courier New', Courier, monospace;
-            font-size: 2rem;
-            letter-spacing: 3px;
-            color: #38bdf8;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+            font-size: 0.82rem;
+            color: #64748b;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
             text-transform: uppercase;
         }
 
-        header p {
-            color: #9ca3af;
+        .banner-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.5rem;
+            color: #38bdf8;
+            text-shadow: 
+                0 0 5px #38bdf8,
+                0 0 10px #38bdf8,
+                0 0 20px rgba(56, 189, 248, 0.6);
+            line-height: 1.5;
+            margin-bottom: 15px;
+            word-break: break-word;
+        }
+
+        .banner-prompt {
+            font-family: 'Courier New', Courier, monospace;
             font-size: 0.9rem;
-            margin-top: 5px;
-            font-family: monospace;
+            color: #22c55e;
+            letter-spacing: 1px;
+        }
+
+        .banner-prompt span.cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #22c55e;
+            vertical-align: middle;
+            margin-left: 4px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
         }
 
         /* Nawigacja */
@@ -327,15 +379,21 @@
             .btn-download {
                 width: 100%;
             }
+            .banner-title {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>[ Iron Stuff Repository ]</h1>
-        <p>Software, Demos & Tools for Atari 800/XL/XE & PC</p>
+    
+    <!-- Baner Retro -->
+    <header class="retro-banner">
+        <div class="banner-sub">[ SYSTEM: ATARI 8-BIT &amp; BEYOND... ]</div>
+        <h1 class="banner-title">IRON STUFF REPOSITORY</h1>
+        <div class="banner-prompt">&gt;_ LOADING SOFTWARE &amp; TOOLS...<span class="cursor"></span></div>
     </header>
 
     <nav>
@@ -452,6 +510,7 @@
 
     </div>
 
+    <!-- Stopka -->
     <footer>
         LAST UPDATE: <span id="last-update">--</span>
     </footer>
@@ -459,7 +518,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Automatyczne włączanie ciągłego przewijania, jeśli tekst się nie mieści
+        // Automatyczne włączanie przewijania nazwy pliku, jeśli się nie mieści
         document.querySelectorAll('.btn-download').forEach(btn => {
             const innerSpan = btn.querySelector('.btn-file-inner');
             const container = btn.querySelector('.btn-file');
@@ -469,22 +528,16 @@
             }
         });
 
-        // Generowanie daty w stopce (angielski dzień tygodnia, godzina, data)
+        // Generowanie daty w stopce: (angielski dzień tygodnia, godzina, data)
         const now = new Date();
         
-        const optionsWeekday = { weekday: 'long' };
-        const weekday = now.toLocaleDateString('en-US', optionsWeekday).toUpperCase();
-        
+        const weekday = now.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase();
         const time = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        
-        const optionsDate = { year: 'numeric', month: '2-digit', day: '2-digit' };
-        const date = now.toLocaleDateString('pl-PL', optionsDate);
+        const date = now.toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
-        // Złożenie w żądany format: (DZIEŃ, GODZINA, DATA)
-        const formattedDate = `${weekday}, ${time}, ${date}`;
-        document.getElementById('last-update').textContent = formattedDate;
+        document.getElementById('last-update').textContent = `${weekday}, ${time}, ${date}`;
 
-        // Filtrowanie kategorii (All, Atari, PC)
+        // Filtrowanie kategorii
         const filters = document.querySelectorAll('nav a[data-filter]');
         const cards = document.querySelectorAll('.download-card');
 
