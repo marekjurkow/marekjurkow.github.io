@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron Stuff Repository</title>
+    <style>
+        /* Reset & bazowe style */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0f1115;
+            background-image: 
+                radial-gradient(circle at 50% 0%, #1a2230 0%, transparent 75%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 20px 20px, 20px 20px;
+            color: #d1d5db;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            background: rgba(18, 22, 29, 0.85);
+            border: 1px solid #2a3441;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Nagłówek */
+        header {
+            text-align: center;
+            border-bottom: 2px solid #2a3441;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            color: #38bdf8;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+            text-transform: uppercase;
+        }
+
+        header p {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            font-family: monospace;
+        }
+
+        /* Nawigacja */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            background: #1e293b;
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: monospace;
+            border: 1px solid #334155;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #38bdf8;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Lista plików */
+        .download-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .download-card {
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-left: 4px solid #38bdf8;
+            border-radius: 6px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .download-card:hover {
+            transform: translateY(-2px);
+            border-color: #30363d;
+        }
+
+        /* Miniaturki i efekty hover */
+        .thumb-box {
+            position: relative;
+            width: 120px;
+            height: 80px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            background: #090d16;
+            flex-shrink: 0;
+        }
+
+        .thumb-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .thumb-box img.default {
+            opacity: 1;
+        }
+
+        /* Animacja przełączania 3 obrazków po najechaniu */
+        .thumb-box.swap-3:hover img.default { opacity: 0; }
+        .thumb-box.swap-3:hover img.hover-1 { animation: cycle1 3s infinite; }
+        .thumb-box.swap-3:hover img.hover-2 { animation: cycle2 3s infinite; }
+
+        @keyframes cycle1 {
+            0%, 45% { opacity: 1; }
+            50%, 95% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes cycle2 {
+            0%, 45% { opacity: 0; }
+            50%, 95% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-title {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #f3f4f6;
+            margin-bottom: 6px;
+        }
+
+        .item-desc {
+            font-size: 0.88rem;
+            color: #9ca3af;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .item-meta {
+            font-size: 0.78rem;
+            color: #6b7280;
+            font-family: monospace;
+        }
+
+        /* Przyciski pobierania */
+        .btn-download {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            width: 200px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.15s ease;
+            cursor: pointer;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .btn-download:hover {
+            filter: brightness(1.15);
+            transform: scale(1.02);
+        }
+
+        .btn-download:active {
+            transform: scale(0.98);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .btn-text {
+            font-size: 0.9rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            margin-bottom: 4px;
+        }
+
+        /* Kontener na nazwę pliku i rozmiar z obsługą przewijania */
+        .btn-file {
+            font-size: 0.72rem;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 3px 6px;
+            border-radius: 3px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .btn-file-inner {
+            display: inline-block;
+            white-space: nowrap;
+            will-change: transform;
+        }
+
+        /* Płynne przewijanie prawo-lewo (marquee) po najechaniu lub automatycznie */
+        .btn-file-inner.scroll {
+            animation: marquee 7s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            15% { transform: translateX(0); }
+            50% { transform: translateX(calc(-100% + 160px)); }
+            65% { transform: translateX(calc(-100% + 160px)); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Kolory przycisków */
+        .btn-cyan {
+            background: linear-gradient(180deg, #14b8a6 0%, #0f766e 100%);
+            border: 2px solid #2dd4bf;
+            color: #ccfbf1;
+        }
+        .btn-cyan .btn-text { color: #5eead4; }
+
+        .btn-crimson {
+            background: linear-gradient(180deg, #9f1239 0%, #4c0519 100%);
+            border: 2px solid #f43f5e;
+            color: #ffe4e6;
+        }
+        .btn-crimson .btn-text { color: #fda4af; }
+
+        .btn-amber {
+            background: linear-gradient(180deg, #b45309 0%, #78350f 100%);
+            border: 2px solid #f59e0b;
+            color: #fef3c7;
+        }
+        .btn-amber .btn-text { color: #fde68a; }
+
+        .btn-green {
+            background: linear-gradient(180deg, #15803d 0%, #14532d 100%);
+            border: 2px solid #22c55e;
+            color: #dcfce7;
+        }
+        .btn-green .btn-text { color: #86efac; }
+
+        .btn-purple {
+            background: linear-gradient(180deg, #7e22ce 0%, #581c87 100%);
+            border: 2px solid #a855f7;
+            color: #f3e8ff;
+        }
+        .btn-purple .btn-text { color: #d8b4fe; }
+
+        .btn-blue {
+            background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+            border: 2px solid #38bdf8;
+            color: #e0f2fe;
+        }
+        .btn-blue .btn-text { color: #7dd3fc; }
+
+        /* Stopka */
+        footer {
+            margin-top: 40px;
+            background: #090d16;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        footer span {
+            color: #22c55e;
+        }
+
+        @media (max-width: 768px) {
+            .download-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .thumb-box {
+                width: 100%;
+                height: 160px;
+            }
+            .btn-download {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>[ Iron Stuff Repository ]</h1>
+        <p>Software, Demos & Tools for Atari 800/XL/XE & PC</p>
+    </header>
+
+    <nav>
+        <a href="#" class="active">[ ALL ]</a>
+        <a href="#">[ ATARI 8-BIT ]</a>
+        <a href="#">[ PC ]</a>
+        <a href="#">[ EXTERNAL LINKS ]</a>
+        <a href="#">[ CONTACT ]</a>
+    </nav>
+
+    <div class="download-list">
+
+        <!-- 1. Bonsai Zen -->
+        <div class="download-card" style="border-left-color: #2dd4bf;">
+            <div class="thumb-box">
+                <img src="bonsai.png" alt="Bonsai Zen" class="default">
+            </div>
+            <div class="item-info">
+                <div class="item-title">Bonsai Zen</div>
+                <div class="item-desc">A delicate 8-bit rendering of a miniature tree. Minimalist and peaceful graphics demo written for standard Atari 800XL/XE hardware.</div>
+                <div class="item-meta">Platform: Atari 8-bit | File: BONSAI.XEX</div>
+            </div>
+            <a href="BONSAI.XEX" class="btn-download btn-cyan" data-file="BONSAI.XEX">
+                <span class="btn-text">DOWNLOAD NOW</span>
+                <span class="btn-file"><span class="btn-file-inner">BONSAI.XEX</span></span>
+            </a>
+        </div>
+
+        <!-- 2. Iron Maiden -->
+        <div class="download-card" style="border-left-color: #f43f5e;">
+            <div class="thumb-box">
+                <img src="iron_maiden.png" alt="Iron Maiden" class="default">
+            </div>
+            <div class="item-info">
+                <div class="item-title">Iron Maiden</div>
+                <div class="item-desc">Classic graphic presentation featuring customized Eddie logo art along with full custom POKEY chip soundtrack routine.</div>
+                <div class="item-meta">Platform: Atari 8-bit | File: IRONMAID.XEX</div>
+            </div>
+            <a href="IRONMAID.XEX" class="btn-download btn-crimson" data-file="IRONMAID.XEX">
+                <span class="btn-text">DOWNLOAD NOW</span>
+                <span class="btn-file"><span class="btn-file-inner">IRONMAID.XEX</span></span>
+            </a>
+        </div>
+
+        <!-- 3. IronUlam v0.99b -->
+        <div class="download-card" style="border-left-color: #f59e0b;">
+            <div class="thumb-box swap-3">
+                <img src="ironulam_1.png" alt="IronUlam 1" class="default">
+                <img src="ironulam_2.png" alt="IronUlam 2" class="hover-1">
+                <img src="ironulam_3.png" alt="IronUlam 3" class="hover-2">
+            </div>
+            <div class="item-info">
+                <div class="item-title">IronUlam v0.99b</div>
+                <div class="item-desc">Single-thread CPU benchmark tool based on real-time Ulam spiral generation algorithms written in QB64PE.</div>
+                <div class="item-meta">Platform: PC / Linux | File: IRONULAM.tar.gz</div>
+            </div>
+            <a href="IRONULAM.tar.gz" class="btn-download btn-amber" data-file="IRONULAM.tar.gz">
+                <span class="btn-text">DOWNLOAD NOW</span>
+                <span class="btn-file"><span class="btn-file-inner">IRONULAM.tar.gz</span></span>
+            </a>
+        </div>
+
+        <!-- 4. Liczenie Obrazków -->
+        <div class="download-card" style="border-left-color: #38bdf8;">
+            <div class="thumb-box swap-3">
+                <img src="liczenie_obrazkow_1.png" alt="Liczenie Obrazków 1" class="default">
+                <img src="liczenie_obrazkow_2.png" alt="Liczenie Obrazków 2" class="hover-1">
+                <img src="liczenie_obrazkow_3.png" alt="Liczenie Obrazków 3" class="hover-2">
+            </div>
+            <div class="item-info">
+                <div class="item-title">Liczenie Obrazków</div>
+                <div class="item-desc">Simple interactive educational counting game for children featuring graphics and retro sound effects on Atari 8-bit.</div>
+                <div class="item-meta">Platform: Atari 8-bit | File: liczenie.atr</div>
+            </div>
+            <a href="liczenie.atr" class="btn-download btn-blue" data-file="liczenie.atr">
+                <span class="btn-text">DOWNLOAD NOW</span>
+                <span class="btn-file"><span class="btn-file-inner">liczenie.atr</span></span>
+            </a>
+        </div>
+
+        <!-- 5. Road To Mountain -->
+        <div class="download-card" style="border-left-color: #a855f7;">
+            <div class="thumb-box">
+                <img src="MOUNTAIN.PNG" alt="Road To Mountain" class="default">
+            </div>
+            <div class="item-info">
+                <div class="item-title">Road To Mountain</div>
+                <div class="item-desc">Atmospheric retro landscape display and graphic scene rendered specifically for standard Atari 8-bit hardware.</div>
+                <div class="item-meta">Platform: Atari 8-bit | File: MOUNTAIN.XEX</div>
+            </div>
+            <a href="MOUNTAIN.XEX" class="btn-download btn-purple" data-file="MOUNTAIN.XEX">
+                <span class="btn-text">DOWNLOAD NOW</span>
+                <span class="btn-file"><span class="btn-file-inner">MOUNTAIN.XEX</span></span>
+            </a>
+        </div>
+
+        <!-- 6. Soccer Pong -->
+        <div class="download-card" style="border-left-color: #22c55e;">
+            <div class="thumb-box swap-3">
+                <img src="soccer_pong_1.png" alt="Soccer Pong 1" class="default">
+                <img src="soccer_pong_2.png" alt="Soccer Pong 2" class="hover-1">
+                <img src="soccer_pong_3.png" alt="Soccer Pong 3" class="hover-2">
+            </div>
+            <div class="item-info">
+                <div class="item-title">Soccer Pong</div>
+                <div class="item-desc">Fast-paced retro arcade sports game for two players on joystick controllers. Retro physics and sound effects included.</div>
+                <div class="item-meta">Platform: Atari 8-bit | File: SOCCRPNG.XEX</div>
+            </div>
+            <a href="SOCCRPNG.XEX" class="btn-download btn-green" data-file="SOCCRPNG.XEX">
+                <span class="btn-text">DOWNLOAD NOW</span>
+                <span class="btn-file"><span class="btn-file-inner">SOCCRPNG.XEX</span></span>
+            </a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>SYSTEM: ATARI 8-BIT &amp; BEYOND...</p>
+        <p>LAST UPDATE: <span>2026-08</span></p>
+        <p>&gt;_ END OF REPOSITORY</p>
+    </footer>
+</div>
+
+<script>
+    function formatBytes(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(2) + ' MB';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.btn-download').forEach(btn => {
+            const fileName = btn.getAttribute('data-file');
+            const innerSpan = btn.querySelector('.btn-file-inner');
+            const container = btn.querySelector('.btn-file');
+
+            fetch(fileName, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        const size = response.headers.get('Content-Length');
+                        if (size) {
+                            const formattedSize = formatBytes(parseInt(size, 10));
+                            innerSpan.textContent = `${fileName} (${formattedSize})`;
+
+                            if (innerSpan.scrollWidth > container.clientWidth) {
+                                innerSpan.classList.add('scroll');
+                            }
+                        }
+                    }
+                })
+                .catch(() => {
+                    // Fallback w razie niedostępności pliku (zostaje sama nazwa)
+                });
+        });
+    });
+</script>
+
+</body>
+</html>
