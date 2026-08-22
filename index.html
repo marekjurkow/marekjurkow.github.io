@@ -406,11 +406,11 @@
             <div class="item-info">
                 <div class="item-title">Liczenie Obrazków</div>
                 <div class="item-desc">Simple interactive educational counting game for children featuring graphics and retro sound effects on Atari 8-bit.</div>
-                <div class="item-meta">Platform: Atari 8-bit | File: LICZENIE.ATR</div>
+                <div class="item-meta">Platform: Atari 8-bit | File: LICZANIE.ATR</div>
             </div>
-            <a href="LICZENIE.ATR" class="btn-download btn-blue" data-file="LICZENIE.ATR">
+            <a href="LICZANIE.ATR" class="btn-download btn-blue" data-file="LICZANIE.ATR">
                 <span class="btn-text">DOWNLOAD NOW</span>
-                <span class="btn-file"><span class="btn-file-inner">LICZENIE.ATR</span></span>
+                <span class="btn-file"><span class="btn-file-inner">LICZANIE.ATR</span></span>
             </a>
         </div>
 
@@ -465,7 +465,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        // Pobieranie rozmiarów plików
+        // Pobieranie rzeczywistych rozmiarów plików przez HEAD
         document.querySelectorAll('.btn-download').forEach(btn => {
             const fileName = btn.getAttribute('data-file');
             const innerSpan = btn.querySelector('.btn-file-inner');
@@ -486,7 +486,7 @@
                     }
                 })
                 .catch(() => {
-                    // Fallback w razie niedostępności pliku (zostaje sama nazwa)
+                    // Fallback w razie problemów z siecią
                 });
         });
 
