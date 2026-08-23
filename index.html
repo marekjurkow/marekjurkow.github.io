@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iron Stuff Repository</title>
+    <!-- SEO & Metadata -->
+    <meta name="description" content="Official repository for Atari 8-bit software, Graph2Font graphics, IronUlam benchmark and PC tools created by Iron.">
+    <meta name="keywords" content="Atari 8-bit, Atari XE, Graph2Font, IronUlam, QB64, retrocomputing, benchmark">
+    <meta name="author" content="Iron">
+
     <!-- Import fontu retro-pixelowego z Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -235,37 +240,92 @@
             font-family: monospace;
         }
 
-        /* Sekcja "Under Construction" dla kontaktu */
-        .construction-box {
+        /* --- BURSZTYNOWY FORMULARZ TERMINALOWY (CONTACT) --- */
+        .amber-terminal {
             display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            background: #090d16;
-            border: 2px dashed #f59e0b;
+            background: #080602;
+            border: 2px solid #f59e0b;
             border-radius: 6px;
-            text-align: center;
-            box-shadow: inset 0 0 15px rgba(245, 158, 11, 0.1);
-        }
-
-        .construction-title {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 1.1rem;
-            color: #f59e0b;
-            margin-bottom: 15px;
-            text-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
-        }
-
-        .construction-desc {
+            padding: 25px;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.15), inset 0 0 10px rgba(0, 0, 0, 0.8);
             font-family: 'Courier New', Courier, monospace;
-            font-size: 0.95rem;
-            color: #94a3b8;
-            max-width: 500px;
-            line-height: 1.5;
         }
 
-        /* Przyciski pobierania / odnośników */
+        .amber-header {
+            border-bottom: 1px dashed #b45309;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            color: #f59e0b;
+            font-weight: bold;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+        }
+
+        .amber-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #f59e0b;
+            border-radius: 50%;
+            margin-right: 6px;
+            box-shadow: 0 0 8px #f59e0b;
+        }
+
+        .field-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .field-label {
+            display: block;
+            color: #fbbf24;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .field-label .req { color: #f43f5e; }
+
+        .amber-input {
+            width: 100%;
+            background: #110d05;
+            border: 1px solid #78350f;
+            border-radius: 4px;
+            padding: 10px 12px;
+            color: #fef3c7;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .amber-input::placeholder {
+            color: #78350f;
+        }
+
+        .amber-input:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .amber-textarea {
+            resize: vertical;
+        }
+
+        .amber-footer-info {
+            margin-top: 20px;
+            border-top: 1px solid #291e0a;
+            padding-top: 12px;
+            font-size: 0.78rem;
+            color: #a16207;
+            text-align: center;
+        }
+
+        .amber-footer-info span { color: #f59e0b; }
+
+        /* Przyciski pobierania / odnośników / wysyłki */
         .btn-download {
             display: flex;
             flex-direction: column;
@@ -302,7 +362,6 @@
             margin-bottom: 4px;
         }
 
-        /* Kontener na nazwę pliku / URL z obsługą przewijania */
         .btn-file {
             font-size: 0.72rem;
             font-weight: bold;
@@ -323,7 +382,6 @@
             will-change: transform;
         }
 
-        /* Ciągłe płynne przewijanie prawo-lewo (marquee) */
         .btn-file-inner.scroll {
             animation: marquee 7s linear infinite;
         }
@@ -378,6 +436,12 @@
             color: #e0f2fe;
         }
         .btn-blue .btn-text { color: #7dd3fc; }
+
+        .btn-submit {
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px;
+        }
 
         /* Stopka */
         footer {
@@ -608,12 +672,43 @@
             </a>
         </div>
 
-        <!-- --- SEKCJA KONTAKT --- -->
-        <div id="contact-box" class="construction-box">
-            <div class="construction-title">[ UNDER CONSTRUCTION ]</div>
-            <div class="construction-desc">
-                &gt;_ DIRECT COMMUNICATION NODE IS CURRENTLY OFFLINE.<br>
-                CHECK BACK LATER FOR UPDATED RELAY DETAILS!
+
+        <!-- --- BURSZTYNOWY FORMULARZ TERMINALOWY (CONTACT) --- -->
+        <div id="contact-box" class="amber-terminal">
+            <div class="amber-header">
+                <span class="amber-dot"></span> &gt;_ AMBER TERMINAL RELAY // TRANSMISSION NODE ONLINE
+            </div>
+
+            <form action="https://formspree.io/f/marekjurkow@gmail.com" method="POST">
+                
+                <div class="field-group">
+                    <label class="field-label">&gt; SENDER IDENT / HANDLE <span class="req">*</span></label>
+                    <input type="text" name="name" required placeholder="e.g. RetroFan_84" class="amber-input">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">&gt; RETURN ADDRESS (EMAIL) <span class="req">*</span></label>
+                    <input type="email" name="email" required placeholder="your.email@domain.com" class="amber-input">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">&gt; TRANSMISSION SUBJECT</label>
+                    <input type="text" name="subject" placeholder="General Inquiry / Feedback" class="amber-input">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">&gt; MESSAGE PAYLOAD <span class="req">*</span></label>
+                    <textarea name="message" required rows="5" placeholder="Type your message payload here..." class="amber-input amber-textarea"></textarea>
+                </div>
+
+                <button type="submit" class="btn-download btn-amber btn-submit">
+                    <span class="btn-text">[ TRANSMIT MESSAGE ↵ ]</span>
+                </button>
+
+            </form>
+
+            <div class="amber-footer-info">
+                ALTERNATIVE RELAYS: <span>atari.area</span> (User: Iron) | NODE: <span>github.com/marekjurkow</span>
             </div>
         </div>
 
@@ -621,7 +716,7 @@
 
     <!-- Stopka -->
     <footer>
-        LAST UPDATE: <span>SATURDAY, 21:06:55, 22.08.2026</span>
+        LAST UPDATE: <span>SUNDAY, 09:07:00, 23.08.2026</span>
     </footer>
 </div>
 
@@ -632,7 +727,7 @@
             const innerSpan = btn.querySelector('.btn-file-inner');
             const container = btn.querySelector('.btn-file');
 
-            if (innerSpan.scrollWidth > container.clientWidth) {
+            if (innerSpan && innerSpan.scrollWidth > container.clientWidth) {
                 innerSpan.classList.add('scroll');
             }
         });
@@ -653,7 +748,7 @@
 
                 if (cat === 'contact') {
                     cards.forEach(card => card.style.display = 'none');
-                    contactBox.style.display = 'flex';
+                    contactBox.style.display = 'block';
                 } else {
                     contactBox.style.display = 'none';
                     cards.forEach(card => {
