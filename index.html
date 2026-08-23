@@ -62,7 +62,6 @@
             text-align: center;
         }
 
-        /* Efekt pasków kineskopowych (scanlines) */
         .retro-banner::before {
             content: " ";
             display: block;
@@ -199,7 +198,6 @@
             opacity: 1;
         }
 
-        /* Animacja przełączania 3 obrazków po najechaniu */
         .thumb-box.swap-3:hover img.default { opacity: 0; }
         .thumb-box.swap-3:hover img.hover-1 { animation: cycle1 3s infinite; }
         .thumb-box.swap-3:hover img.hover-2 { animation: cycle2 3s infinite; }
@@ -500,7 +498,7 @@
 
     <div class="download-list">
 
-        <!-- --- SEKCJA OPROGRAMOWANIA --- -->
+        <!-- --- SEKCJA OPROGRAMOWANIA (LINKI Z GITHUB RELEASES) --- -->
 
         <!-- 1. Bonsai -->
         <div class="download-card" data-cat="atari" style="border-left-color: #2dd4bf;">
@@ -512,7 +510,7 @@
                 <div class="item-desc">Retro graphic rendering of a miniature tree drawn using Graph2Font for standard Atari 8-bit hardware.</div>
                 <div class="item-meta">Platform: Atari 8-bit | File: BONSAI.XEX</div>
             </div>
-            <a href="BONSAI.XEX" class="btn-download btn-cyan">
+            <a href="https://github.com/marekjurkow/marekjurkow.github.io/releases/download/v1.0/BONSAI.XEX" class="btn-download btn-cyan">
                 <span class="btn-text">DOWNLOAD NOW</span>
                 <span class="btn-file"><span class="btn-file-inner">BONSAI.XEX (3.8 KB)</span></span>
             </a>
@@ -528,7 +526,7 @@
                 <div class="item-desc">Classic graphic presentation written entirely in pure Atari BASIC statements and compiled to machine code.</div>
                 <div class="item-meta">Platform: Atari 8-bit | File: IRONMAID.XEX</div>
             </div>
-            <a href="IRONMAID.XEX" class="btn-download btn-crimson">
+            <a href="https://github.com/marekjurkow/marekjurkow.github.io/releases/download/v1.0/IRONMAID.XEX" class="btn-download btn-crimson">
                 <span class="btn-text">DOWNLOAD NOW</span>
                 <span class="btn-file"><span class="btn-file-inner">IRONMAID.XEX (4.5 KB)</span></span>
             </a>
@@ -546,7 +544,7 @@
                 <div class="item-desc">Single-thread CPU benchmark tool based on real-time Ulam spiral generation algorithms written in QB64PE.</div>
                 <div class="item-meta">Platform: PC / Linux | File: IRONULAM.TAR.GZ</div>
             </div>
-            <a href="IRONULAM.TAR.GZ" class="btn-download btn-amber">
+            <a href="https://github.com/marekjurkow/marekjurkow.github.io/releases/download/v1.0/IRONULAM.TAR.GZ" class="btn-download btn-amber">
                 <span class="btn-text">DOWNLOAD NOW</span>
                 <span class="btn-file"><span class="btn-file-inner">IRONULAM.TAR.GZ (439.8 KB)</span></span>
             </a>
@@ -564,7 +562,7 @@
                 <div class="item-desc">Simple interactive educational counting game for children on Atari 8-bit.</div>
                 <div class="item-meta">Platform: Atari 8-bit | File: LICZENIE.ATR</div>
             </div>
-            <a href="LICZENIE.ATR" class="btn-download btn-blue">
+            <a href="https://github.com/marekjurkow/marekjurkow.github.io/releases/download/v1.0/LICZENIE.ATR" class="btn-download btn-blue">
                 <span class="btn-text">DOWNLOAD NOW</span>
                 <span class="btn-file"><span class="btn-file-inner">LICZENIE.ATR (92.2 KB)</span></span>
             </a>
@@ -580,7 +578,7 @@
                 <div class="item-desc">Atmospheric retro landscape graphic drawn using Graph2Font, rendered specifically for standard Atari 8-bit hardware.</div>
                 <div class="item-meta">Platform: Atari 8-bit | File: MOUNTAIN.XEX</div>
             </div>
-            <a href="MOUNTAIN.XEX" class="btn-download btn-purple">
+            <a href="https://github.com/marekjurkow/marekjurkow.github.io/releases/download/v1.0/MOUNTAIN.XEX" class="btn-download btn-purple">
                 <span class="btn-text">DOWNLOAD NOW</span>
                 <span class="btn-file"><span class="btn-file-inner">MOUNTAIN.XEX (4.4 KB)</span></span>
             </a>
@@ -598,14 +596,14 @@
                 <div class="item-desc">Fast-paced retro arcade sports game for two players on joystick controllers. Retro physics and sound effects included.</div>
                 <div class="item-meta">Platform: Atari 8-bit | File: SOCCRPNG.XEX</div>
             </div>
-            <a href="SOCCRPNG.XEX" class="btn-download btn-green">
+            <a href="https://github.com/marekjurkow/marekjurkow.github.io/releases/download/v1.0/SOCCRPNG.XEX" class="btn-download btn-green">
                 <span class="btn-text">DOWNLOAD NOW</span>
                 <span class="btn-file"><span class="btn-file-inner">SOCCRPNG.XEX (25.6 KB)</span></span>
             </a>
         </div>
 
 
-        <!-- --- SEKCJA EXTERNAL LINKS (ALFABETYCZNIE) --- -->
+        <!-- --- SEKCJA EXTERNAL LINKS --- -->
 
         <!-- 1. AtariArea -->
         <div class="download-card" data-cat="links" style="border-left-color: #38bdf8; display: none;">
@@ -716,13 +714,12 @@
 
     <!-- Stopka -->
     <footer>
-        LAST UPDATE: <span>SUNDAY, 09:07:00, 23.08.2026</span>
+        LAST UPDATE: <span>SUNDAY, 12:48:00, 23.08.2026</span>
     </footer>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Automatyczne włączanie przewijania nazwy pliku / linku, jeśli nie mieści się w przycisku
         document.querySelectorAll('.btn-download').forEach(btn => {
             const innerSpan = btn.querySelector('.btn-file-inner');
             const container = btn.querySelector('.btn-file');
@@ -732,7 +729,6 @@
             }
         });
 
-        // Filtrowanie kategorii (All, Atari 8-bit, PC, External Links, Contact)
         const filters = document.querySelectorAll('nav a[data-filter]');
         const cards = document.querySelectorAll('.download-card');
         const contactBox = document.getElementById('contact-box');
